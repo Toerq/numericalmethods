@@ -41,17 +41,23 @@ thetar = 100;
 val = odeset;
 %val = odeset('OutputFcn', 'odeplot', 'RelTol', 1e-2);
 tic;
-[t,y] = ode45(@problem2model, h, y0);
+[t,y] = ode15s(@problem2model, h, y0);
 elapsedTime = toc;
 fprintf('%f sekunder.', elapsedTime);
 
 if isempty(val.OutputFcn) 
-   %plot( t,y(:,7), t,y(:,8) );
+   plot( t,y(:,7), t,y(:,8) );
+   xlabel('TID');
+   ylabel('Antal A resp. R');
+   title('Simulering av molekylär mekanism för dygnsrytm');
+   legend('A', 'R');
+
+   figure;
+   
    plot( t(1:end-1), diff(t) );
+   xlabel('Tidssteg');
+   ylabel('Steglängder');
+   title('Simulering av molekylär mekanism för dygnsrytm');
 end
 
-xlabel('TID');
-ylabel('Antal A resp. R');
-title('Simulering av molekylär mekanism för dygnsrytm');
-legend('A', 'R');
 
